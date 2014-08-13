@@ -1,51 +1,56 @@
-
 package com.katherine.web;
 
+import java.io.IOException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller 
 @RequestMapping("/") 
-
-
 public class ControllerAutor {
     
- @RequestMapping (value = "/cuenta/{total_autor}/{id_autor}", method = RequestMethod.GET, headers = {"Accept=text/html"}) 
- public @ResponseBody String insertar(@PathVariable float total_venta, @PathVariable int id_autor){ 
+ @RequestMapping (value = "/autor/{nombre}/{apellidoPa}/{apellidoMa}/{id_editorial}", method = RequestMethod.GET, headers = {"Accept=text/html"}) 
+ public @ResponseBody String insertar(@PathVariable  String nombre, @PathVariable String apellidoPa, @PathVariable String apellidoMa, @PathVariable int id_editorial){ 
  try { 
- DAOAutorImpl.insertar(new Autor(total_venta, new autor(id_autor))); 
+ DAOAutorImpl d=new DAOAutorImpl();
+ d.agregarAutor(new Autor(nombre, apellidoPa, apellidoMa, new Editorial(id_editorial)));
  return "Autor agregado correctamente"; 
  } catch (Exception e) { 
- return "El autor no existe"; 
+ return "El Editorial no existe"; 
  } 
  }
  
- @RequestMapping (value = "/cuenta/{id_cuenta}/{total_venta}/{id_usuario}", method = RequestMethod.PUT, headers = {"Accept=text/html"}) 
- public @ResponseBody String actualizar(@PathVariable int id_cuenta, @PathVariable float total_venta, @PathVariable int id_usuario){ 
- try { 
- DAOCuentaImpl.actualizar(new Cuenta(id_cuenta,total_venta, new Usuario(id_usuario))); 
- return "Cuenta actualizada correctamente"; 
+ @RequestMapping (value = "/autor/{nombre}/{apellidoPa}/{apellidoMa}/{id_editorial}", method = RequestMethod.PUT, headers = {"Accept=text/html"}) 
+ public @ResponseBody String actualizar(@PathVariable  String nombre, @PathVariable String apellidoPa, @PathVariable String apellidoMa, @PathVariable int id_editorial){
+ try {
+ DAOAutorImpl d=new DAOAutorImpl();
+ d.actualizarAutor(new Autor(nombre, apellidoPa, apellidoMa, new Editorial(id_editorial))); 
+ return "Autor actualizado correctamente"; 
  } catch (Exception e) { 
- return "Error al actualizar la cuenta"; 
+ return "Error al actualizar el autor"; 
  } 
  } 
- @RequestMapping (value = "/cuenta/{id}", method = RequestMethod.DELETE, headers = {"Accept=text/html"}) 
- public @ResponseBody String eliminar(@PathVariable int id_cuenta){ 
- try { 
- DAOCuentaImpl.borrar(new Cuenta(id_cuenta)); 
- return "La cuenta con id" + id_cuenta + "se ha eliminado"; 
+ @RequestMapping (value = "/autor/{id_autor}", method = RequestMethod.DELETE, headers = {"Accept=text/html"}) 
+ public @ResponseBody String eliminar(@PathVariable int id_autor){ 
+ try {
+ DAOAutorImpl d=new DAOAutorImpl();
+ d.borrarAutor(new Autor(id_autor)); 
+ return "El autor con id" + id_autor + "se ha eliminado"; 
  } catch (Exception e) { 
- return "Error al borrar la cuenta buscada"; 
+ return "Error al borrar el autor buscado"; 
  } 
  } 
- @RequestMapping (value = "/cuenta", method = RequestMethod.GET, headers = {"Accept=Application/json"}) 
- public @ResponseBody String buscarTodos () throws IOException{ 
+ @RequestMapping (value = "/autor", method = RequestMethod.GET, headers = {"Accept=Application/json"}) 
+ public @ResponseBody String buscarTodosAutor() throws IOException{ 
  ObjectMapper mapper1 = new ObjectMapper(); 
- return mapper1.writeValueAsString(DAOCuentaImpl.buscarTodos()); 
+ return mapper1.writeValueAsString(DAOAutorImpl.buscarTodosAutor()); 
  } 
- @RequestMapping (value = "/cuenta/{id}", method = RequestMethod.GET, headers = {"Accept=text/html"}) 
+ @RequestMapping (value = "/autor/{id}", method = RequestMethod.GET, headers = {"Accept=text/html"}) 
  public @ResponseBody String buscarPorId (@PathVariable int id){ 
- return DAOCuentaImpl.buscarId(id).toString(); 
+ return DAOAutorImpl.buscarId(id_autor).toString(); 
  } 
 
 }

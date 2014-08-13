@@ -26,8 +26,7 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "editorial")
-@NamedQueries({
-    @NamedQuery(name = "Editorial.findAll", query = "SELECT e FROM Editorial e")})
+
 public class Editorial implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -44,10 +43,15 @@ public class Editorial implements Serializable {
     @Size(max = 80)
     @Column(name = "telefono")
     private String telefono;
-    @OneToMany(mappedBy = "idEditorial")
-    private Collection<Autor> autorCollection;
+ 
 
     public Editorial() {
+    }
+
+    public Editorial(String nombre, String direccion, String telefono) {
+        this.nombre = nombre;
+        this.direccion = direccion;
+        this.telefono = telefono;
     }
 
     public Editorial(Integer idEditorial) {
@@ -86,13 +90,7 @@ public class Editorial implements Serializable {
         this.telefono = telefono;
     }
 
-    public Collection<Autor> getAutorCollection() {
-        return autorCollection;
-    }
-
-    public void setAutorCollection(Collection<Autor> autorCollection) {
-        this.autorCollection = autorCollection;
-    }
+ 
 
     @Override
     public int hashCode() {

@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import org.hibernate.Query;
 
 public class DAOAutorImpl extends DAO {
-    
+
+        
 public void agregarAutor(Autor x) { 
          begin(); 
          getSession().save(x); 

@@ -52,6 +52,15 @@ public class Autor implements Serializable {
     @ManyToOne
     private Editorial idEditorial;
 
+    public Autor( String nombre, String apellidoPa, String apellidoMa, Editorial idEditorial) {
+      
+        this.nombre = nombre;
+        this.apellidoPa = apellidoPa;
+        this.apellidoMa = apellidoMa;
+        this.idEditorial = idEditorial;
+    }
+
+    
     public Autor() {
     }
 
