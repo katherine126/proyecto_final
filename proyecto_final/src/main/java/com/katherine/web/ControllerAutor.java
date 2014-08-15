@@ -48,9 +48,9 @@ public class ControllerAutor {
  ObjectMapper mapper1 = new ObjectMapper(); 
  return mapper1.writeValueAsString(DAOAutorImpl.buscarTodosAutor()); 
  } 
- @RequestMapping (value = "/autor/{id}", method = RequestMethod.GET, headers = {"Accept=text/html"}) 
- public @ResponseBody String buscarPorId (@PathVariable int id){ 
- return DAOAutorImpl.buscarId(id_autor).toString(); 
+ @RequestMapping (value = "/autor/{id_autor}", method = RequestMethod.GET, headers = {"Accept=text/html"}) 
+ public @ResponseBody String buscarPorId (@PathVariable int id_autor){ 
+ return DAOAutorImpl.buscarPorId(id_autor).toString(); 
  } 
 
 }

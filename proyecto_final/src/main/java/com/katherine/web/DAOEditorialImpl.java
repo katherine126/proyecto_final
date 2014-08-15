@@ -1,34 +1,35 @@
 package com.katherine.web;
 
 import java.util.ArrayList;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 
 public class DAOEditorialImpl extends DAO{
     
-    public void agregarEditorial(Editorial z) { 
+    public static void agregarEditorial(Editorial z) { 
          begin(); 
          getSession().save(z); 
          commit(); 
          close(); 
      } 
       
-     public void borrarEditorial(Editorial z){ 
+     public static void borrarEditorial(Editorial z){ 
          begin(); 
          getSession().delete(z); 
          commit(); 
          close(); 
      } 
       
-     public void actualizarEditorial(Editorial z){ 
+     public static void actualizarEditorial(Editorial z){ 
          begin(); 
          getSession().update(z); 
          commit(); 
          close(); 
      } 
       
-     public ArrayList<Editorial> buscarTodosEditorial() { 
+     public static ArrayList<Editorial> buscarTodosEditorial() { 
          begin(); 
-         Query q = getSession().createQuery("from Editorial"); 
+         Criteria q = getSession().createCriteria(Editorial.class); 
          ArrayList<Editorial> zz = (ArrayList<Editorial>)q.list(); 
          commit(); 
          close(); 
@@ -36,7 +37,7 @@ public class DAOEditorialImpl extends DAO{
      } 
       
         
-     public Editorial buscarPorId(int id){ 
+     public static Editorial buscarPorId(int id){ 
          begin(); 
         Query q = getSession().createQuery("from Editorial where id = :id"); 
          q.setInteger("id",id); 

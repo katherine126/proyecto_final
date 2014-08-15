@@ -1,35 +1,36 @@
 package com.katherine.web;
 
 import java.util.ArrayList;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 
 public class DAOAutorImpl extends DAO {
 
         
-public void agregarAutor(Autor x) { 
+public static void agregarAutor(Autor x) { 
          begin(); 
          getSession().save(x); 
          commit(); 
          close(); 
      } 
       
-     public void borrarAutor(Autor x){ 
+     public static void borrarAutor(Autor x){ 
          begin(); 
          getSession().delete(x); 
         commit(); 
          close(); 
      } 
       
-     public void actualizarAutor(Autor x){ 
+     public static void actualizarAutor(Autor x){ 
          begin(); 
          getSession().update(x); 
          commit(); 
          close(); 
      } 
       
-     public ArrayList<Autor> buscarTodosAutor() { 
+     public static ArrayList<Autor> buscarTodosAutor() { 
          begin(); 
-         Query q = getSession().createQuery("from Autor"); 
+         Criteria q = getSession().createCriteria(Autor.class); 
          ArrayList<Autor> xx = (ArrayList<Autor>)q.list(); 
          commit(); 
          close(); 
@@ -37,7 +38,7 @@ public void agregarAutor(Autor x) {
      } 
       
         
-     public Autor buscarPorId(int id){ 
+     public static Autor buscarPorId(int id){ 
          begin(); 
         Query q = getSession().createQuery("from Autor where id = :id"); 
          q.setInteger("id",id); 

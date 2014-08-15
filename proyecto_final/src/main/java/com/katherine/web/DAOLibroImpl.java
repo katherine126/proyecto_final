@@ -4,34 +4,35 @@ package com.katherine.web;
 import static com.katherine.web.DAO.close;
 import static com.katherine.web.DAO.getSession;
 import java.util.ArrayList;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 
 public class DAOLibroImpl extends DAO{
     
-    public void agregarLibro(Libro y) { 
+    public static void agregarLibro(Libro y) { 
          begin(); 
          getSession().save(y); 
          commit(); 
          close(); 
      } 
       
-     public void borrarLibro(Libro y){ 
+     public static void borrarLibro(Libro y){ 
          begin(); 
          getSession().delete(y); 
         commit(); 
          close(); 
      } 
       
-     public void actualizarLibro(Libro y){ 
+     public static void actualizarLibro(Libro y){ 
          begin(); 
          getSession().update(y); 
          commit(); 
          close(); 
      } 
       
-     public ArrayList<Libro> buscarTodosLibro() { 
+     public static ArrayList<Libro> buscarTodosLibro() { 
          begin(); 
-         Query q = getSession().createQuery("from Libro"); 
+         Criteria q = getSession().createCriteria(Libro.class); 
          ArrayList<Libro> yy = (ArrayList<Libro>)q.list(); 
          commit(); 
          close(); 
@@ -39,7 +40,7 @@ public class DAOLibroImpl extends DAO{
      } 
       
         
-     public Libro buscarPorId(int id){ 
+     public static Libro buscarPorId(int id){ 
          begin(); 
         Query q = getSession().createQuery("from Libro where id = :id"); 
          q.setInteger("id",id); 
